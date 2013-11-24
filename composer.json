@@ -1,0 +1,26 @@
+{
+    "name": "cordoval/syncer-bundle",
+    "type": "symfony-bundle",
+    "description": "This Bundle integrates Vespolina/Syncer into Symfony2",
+    "keywords": ["syncer", "sync", "data", "entities"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Luis Cordova",
+            "email": "cordoval@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "vespolina/syncer": "dev-master"
+    },
+    "autoload": {
+        "psr-0": { "Cordoval\\SyncerBundle": "" }
+    },
+    "target-dir": "Cordoval/SyncerBundle",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
