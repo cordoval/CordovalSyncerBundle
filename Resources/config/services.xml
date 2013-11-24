@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="cordoval_syncer.gateway" class="Vespolina\Sync\Gateway\SyncDoctrineORMGateway">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+        </service>
+
+        <service id="cordoval_syncer.manager" class="Vespolina\Sync\Manager\SyncManager">
+            <argument type="service" id="cordoval_syncer.gateway"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="logger"/>
+            <argument type="collection">%syncer_manager_params%</argument>
+        </service>
+
+        <service id="cordoval_syncer.adapter.authorizenet" class="Cordoval\SyncerBundle\Adapter\CIMAuthorizeNetAdapter">
+            <argument type="collection">%syncer_adapter_entities%</argument>
+            <argument type="collection">%syncer_adapter_params%</argument>
+            <argument type="service" id="logger" />
+            <tag name="cordoval.sync_adapter"/>
+        </service>
+
+        <service id="cordoval_syncer.repository.customer_profile"
+                 class="%cordoval.customer_profile_repo.class%"
+                 factory-service="doctrine.orm.entity_manager"
+                 factory-method="getRepository">
+            <argument>%cordoval.customer_profile.class%</argument>
+            <tag name="cordoval.entity_retriever" entityName="customerProfile" findByIdMethod="findById"/>
+        </service>
+    </services>
+</container>
