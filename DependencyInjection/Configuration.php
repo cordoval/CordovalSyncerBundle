@@ -20,7 +20,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('adapter')
                     ->children()
                         ->arrayNode('entities')
-                            ->prototype('array')
+                            ->prototype('scalar')
                             ->end()
                         ->end()
                         ->scalarNode('config')
