@@ -20,14 +20,16 @@ class CIMAuthorizeNetAdapter extends AbstractServiceAdapter
                     return new EntityData($entityName, $remoteId, '<xml>...blablabla...</xml>');
                 }
                 break;
-            case 'profile':
+            case 'customerProfile':
                 if (array_key_exists($remoteId, $this->remoteProfiles)) {
                     return new EntityData($entityName, $remoteId, '<xml>...blablabla...</xml>');
                 }
                 break;
             default:
-                throw new \Exception('this should never be reached');
+                break;
         }
+
+        throw new \Exception('this should never be reached');
     }
 
     public function fetchEntities($entityName, $lastValue, $size)
@@ -52,7 +54,7 @@ class CIMAuthorizeNetAdapter extends AbstractServiceAdapter
                 }
                 break;
 
-            case 'profile':
+            case 'customerProfile':
                 // Even more naive
                 foreach ($this->remoteProfiles as $remoteProfile) {
                     if (null != $size && count($out) == $size) {
@@ -79,7 +81,7 @@ class CIMAuthorizeNetAdapter extends AbstractServiceAdapter
 
                 return $customer;
 
-            case 'profile':
+            case 'customerProfile':
                 $profile = new LocalCustomerProfile();
                 // In reality the local persistence gateway would generate the local id
                 $profile->name = $entityData->getEntityId();
